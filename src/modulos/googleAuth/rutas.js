@@ -52,7 +52,7 @@ router.get('/callback', async (req, res, next) => {
 		res.cookie('userName', userInfo.name, { secure: false, sameSite: 'strict' });
 		res.cookie('userRol', rol, { secure: false, sameSite: 'strict' });
 
-		res.redirect('https://localhost:8080/home');
+		res.redirect('https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com');
 
 	} catch (err) {
 		next(err);

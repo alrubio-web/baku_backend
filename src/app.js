@@ -40,7 +40,7 @@ const app = express();
 
 // Configuración de middlewares
 app.use(cors({
-	origin: 'https://localhost:8080',
+	origin: 'https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com',
 	credentials: true,
 }));
 app.use(morgan('dev')); // Usa morgan en modo 'dev' para registrar solicitudes HTTP
@@ -61,8 +61,9 @@ https.createServer(options, app).listen(config.app.port, () => {
 */
 
 // Escucha en el puerto proporcionado por la configuración o el entorno
-app.listen(config.app.port, () => {
-	console.log(`Servidor ejecutándose en http://localhost:${config.app.port}`);
+const PORT = process.env.PORT || 4000; // Usará el puerto de Heroku en producción y 4000 en desarrollo local
+app.listen(PORT, () => {
+	console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });
 
 //Configuramos la aplicación para usar cookieParser()
