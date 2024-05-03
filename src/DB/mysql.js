@@ -21,7 +21,8 @@ const dbconfig = {
 	host: config.mysql.host,
 	user: config.mysql.user,
 	password: config.mysql.password,
-	database: config.mysql.database
+	database: config.mysql.database,
+	port: config.mysql.port || 3306  // Usar el puerto de la variable de entorno o 3306 como predeterminado
 }
 
 let conexion;
