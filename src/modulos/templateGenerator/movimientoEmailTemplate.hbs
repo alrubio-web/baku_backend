@@ -1,0 +1,64 @@
+<!--
+ Baku - Sistema Integral de Gestión Inmobiliaria
+
+ Este archivo es parte de "Baku - Sistema Integral de Gestión Inmobiliaria".
+
+ Este código está disponible bajo la Licencia Dual:
+ - Uso no comercial bajo GNU AGPL v3.0.
+ - Uso comercial bajo Licencia Comercial (contactar al autor para más detalles).
+
+  @author Alfredo Rubio Mariño
+  @copyright (C) 2023 Alfredo Rubio Mariño
+  @license AGPL-3.0-or-later <https://www.gnu.org/licenses/agpl-3.0.html>
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Informe de Movimientos</title>
+		<style>
+			.logo { position: absolute; top: 5%; right: 5%; width: 150px; height: auto;}
+			body {
+				font-family: Arial, sans-serif;
+				line-height: 1.6;
+			}
+			.container {
+				margin: 20px;
+				padding: 20px;
+			}
+			.header {
+				margin-bottom: 20px;
+			}
+			.footer {
+				margin-top: 20px;
+				font-size: 0.95em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h2>Aviso de Baku Rental Manager</h2>
+			</div>
+
+			<p>Estimado/a {{data.nombre_inquilino}}:</p>
+
+			<p>Te avisamos del próximo movimiento con concepto "{{data.descripcion}}" asociado al inmueble
+			   "{{data.nombre_inmueble}}" por importe de "{{data.total}}" euros.</p>
+
+			<p><b>Fecha del Movimiento: </b>{{data.fecha}}<br>
+			   <b>Estado: </b> {{data.estado}}</p>
+
+			<p>Tu saldo actual, incluyendo este movimiento, es de <b><u>{{data.saldo}} </u></b>euros.</p>
+
+			<p>Contacta con nosotros si tienes cualquier duda.</p>
+
+			<div class="footer">
+				<p>Atentamente,</p>
+				<p>El equipo Baku</p>
+			</div>
+		</div>
+
+	</body>
+</html>

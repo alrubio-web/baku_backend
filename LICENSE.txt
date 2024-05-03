@@ -1,0 +1,15 @@
+Licencia Dual para "Baku - Sistema Integral de Gestión Inmobiliaria"
+
+Copyright (C) 2024 Alfredo Rubio Mariño
+
+Este software se distribuye bajo una Licencia Dual:
+
+1. **Versión de Código Abierto:**
+   Bajo la GNU Affero General Public License (AGPL) v3.0 o posterior.
+   Puedes ver una copia de esta licencia en <https://www.gnu.org/licenses/agpl-3.0.html>.
+
+2. **Versión Comercial:**
+   Para usar este software con propósitos comerciales, es necesario obtener una licencia comercial.
+   Para adquirir una licencia comercial, contacta al autor en alrubiom.web@gmail.com
+
+Este software se proporciona "tal cual", sin garantía de ningún tipo, expresa o implícita, incluyendo pero no limitado a las garantías de comerciabilidad, aptitud para un propósito particular y no infracción. En ningún caso los autores o los titulares de los derechos de autor serán responsables por cualquier reclamo, daños u otras responsabilidades, ya sea en una acción de contrato, tortura u otra acción que surja de, fuera de o en conexión con el software u otro uso del software.

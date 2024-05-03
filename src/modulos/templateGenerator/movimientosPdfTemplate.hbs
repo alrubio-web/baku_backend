@@ -1,0 +1,69 @@
+<!--
+ Baku - Sistema Integral de Gestión Inmobiliaria
+
+ Este archivo es parte de "Baku - Sistema Integral de Gestión Inmobiliaria".
+
+ Este código está disponible bajo la Licencia Dual:
+ - Uso no comercial bajo GNU AGPL v3.0.
+ - Uso comercial bajo Licencia Comercial (contactar al autor para más detalles).
+
+  @author Alfredo Rubio Mariño
+  @copyright (C) 2023 Alfredo Rubio Mariño
+  @license AGPL-3.0-or-later <https://www.gnu.org/licenses/agpl-3.0.html>
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Informe de Movimientos</title>
+		<style>
+			body { font-family: Arial, sans-serif; font-size: 18px; margin: 2%; padding: 0; }
+			.header { position: relative; padding: 20px;}
+			.logo { position: absolute; top: 5%; right: 5%; width: 150px; height: auto;}
+			table { width: 100%; border-collapse: collapse; margin-top: 80px; }
+			th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+			th { background-color: #f2f2f2; }
+			.total { font-weight: bold; white-space: nowrap; }
+			.pendiente { color: red; }
+			.abonado { color: green; }
+			.anulado { color: darkolivegreen;}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<img src="{{logoUrl}}" class="logo" width="100" alt="Logo">
+			<h1>Informe de Movimientos</h1>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Inquilino</th>
+					<th>Propietario</th>
+					<th>Inmueble</th>
+					<th>Fecha</th>
+					<th>Tipo</th>
+					<th>Descripción</th>
+					<th>Total</th>
+					<th>Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each data}}
+					<tr>
+						<td>{{id}}</td>
+						<td>{{nombre_inquilino}}</td>
+						<td>{{nombre_propietario}}</td>
+						<td>{{nombre_inmueble}}</td>
+						<td>{{fecha}}</td>
+						<td>{{tipo}}</td>
+						<td>{{descripcion}}</td>
+						<td class="total">{{total}} EUR</td>
+						<td class="{{estado}}">{{estado}}</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</body>
+</html>
