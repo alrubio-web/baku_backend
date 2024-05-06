@@ -38,11 +38,13 @@ const https = require('https');
 // Inicialización de la aplicación Express
 const app = express();
 
-// Configuración de middlewares
 app.use(cors({
-	origin: 'https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com',
-	credentials: true,
+	origin: ["https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com"], // Asegúrate de incluir todos los dominios necesarios
+	credentials: true, // Permite cookies
+	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+	allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
 }));
+
 app.use(morgan('dev')); // Usa morgan en modo 'dev' para registrar solicitudes HTTP
 app.use(express.json()); // Parsea el cuerpo de las solicitudes entrantes en un objeto JSON
 app.use(express.urlencoded({extended: true})); // Parsea el cuerpo de las solicitudes entrantes con payloads URL-encoded
