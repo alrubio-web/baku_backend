@@ -45,12 +45,28 @@ router.get('/callback', async (req, res, next) => {
 		const rol = await userService.rolUsuarioRegistrado();
 
 		// Establecer cookies para el usuario y tokens
-		res.cookie('internalToken', internalToken, { httpOnly: true, secure: true, sameSite: 'None' });
-		res.cookie('googleAccessToken', tokens.access_token, { httpOnly: true, secure: true, sameSite: 'None' });
+		res.cookie('internalToken', internalToken, {
+			httpOnly: true, // La cookie no es accesible a través de JavaScript en el cliente
+			secure: true, // Solo enviar la cookie sobre HTTPS
+			sameSite: 'None' // Necesario para el envío de cookies en contextos cross-site
+		});
 
-		// Enviar el nombre del usuario y el rol en cookies accesibles desde el frontend
-		res.cookie('userName', userInfo.name, { secure: false, sameSite: 'strict' });
-		res.cookie('userRol', rol, { secure: false, sameSite: 'strict' });
+		res.cookie('googleAccessToken', tokens.access_token, {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'None'
+		});
+
+// Enviar el nombre del usuario y el rol en cookies accesibles desde el frontend
+		res.cookie('userName', userInfo.name, {
+			secure: true, // Asegura que la cookie se envíe solo a través de HTTPS
+			sameSite: 'Lax' // Permite que la cookie sea enviada en requests de tipo top-level navigation que provengan de otros sitios
+		});
+
+		res.cookie('userRol', rol, {
+			secure: true,
+			sameSite: 'Lax'
+		});
 
 		res.redirect('https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com');
 
