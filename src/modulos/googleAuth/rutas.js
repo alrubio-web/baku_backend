@@ -48,24 +48,24 @@ router.get('/callback', async (req, res, next) => {
 		res.cookie('internalToken', internalToken, {
 			httpOnly: true, // La cookie no es accesible a través de JavaScript en el cliente
 			secure: true, // Solo enviar la cookie sobre HTTPS
-			sameSite: 'Lax' // Necesario para el envío de cookies en contextos cross-site
+			sameSite: 'None' // Necesario para el envío de cookies en contextos cross-site
 		});
 
 		res.cookie('googleAccessToken', tokens.access_token, {
 			httpOnly: true,
 			secure: true,
-			sameSite: 'Lax'
+			sameSite: 'None'
 		});
 
 // Enviar el nombre del usuario y el rol en cookies accesibles desde el frontend
 		res.cookie('userName', userInfo.name, {
 			secure: true, // Asegura que la cookie se envíe solo a través de HTTPS
-			sameSite: 'Lax' // Permite que la cookie sea enviada en requests de tipo top-level navigation que provengan de otros sitios
+			sameSite: 'None' // Permite que la cookie sea enviada en requests de tipo top-level navigation que provengan de otros sitios
 		});
 
 		res.cookie('userRol', rol, {
 			secure: true,
-			sameSite: 'Lax'
+			sameSite: 'None'
 		});
 
 		res.redirect('https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com');
