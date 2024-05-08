@@ -48,13 +48,13 @@ router.get('/callback', async (req, res, next) => {
 		res.cookie('internalToken', internalToken, {
 			httpOnly: true, // La cookie no es accesible a través de JavaScript en el cliente
 			secure: true, // Solo enviar la cookie sobre HTTPS
-			sameSite: 'None' // Necesario para el envío de cookies en contextos cross-site
+			sameSite: 'Lax' // Necesario para el envío de cookies en contextos cross-site
 		});
 
 		res.cookie('googleAccessToken', tokens.access_token, {
 			httpOnly: true,
 			secure: true,
-			sameSite: 'None'
+			sameSite: 'Lax'
 		});
 
 // Enviar el nombre del usuario y el rol en cookies accesibles desde el frontend
