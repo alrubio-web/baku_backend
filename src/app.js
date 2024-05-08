@@ -39,7 +39,7 @@ const https = require('https');
 const app = express();
 
 app.use(cors({
-	origin: ["https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com"], // Asegúrate de incluir todos los dominios necesarios
+	origin: ["https://www.bakurentalmanager.site"], // Asegúrate de incluir todos los dominios necesarios
 	credentials: true, // Permite cookies
 	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
 	allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos

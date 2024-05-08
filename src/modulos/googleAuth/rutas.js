@@ -68,7 +68,7 @@ router.get('/callback', async (req, res, next) => {
 			sameSite: 'None'
 		});
 
-		res.redirect('https://baku-rental-manager-frontend-fd6687d31d88.herokuapp.com');
+		res.redirect('https://www.bakurentalmanager.site');
 
 	} catch (err) {
 		next(err);
