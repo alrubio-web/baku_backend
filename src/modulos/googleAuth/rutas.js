@@ -59,13 +59,14 @@ router.get('/callback', async (req, res, next) => {
 
 // Enviar el nombre del usuario y el rol en cookies accesibles desde el frontend
 		res.cookie('userName', userInfo.name, {
-			secure: true, // Asegura que la cookie se envíe solo a través de HTTPS
-			sameSite: 'None' // Permite que la cookie sea enviada en requests de tipo top-level navigation que provengan de otros sitios
+			secure: false, // Asegura que la cookie se envíe solo a través de HTTPS
+			sameSite: 'Lax' // Permite que la cookie sea enviada en requests de tipo top-level navigation que provengan de otros
+			// sitios
 		});
 
 		res.cookie('userRol', rol, {
-			secure: true,
-			sameSite: 'None'
+			secure: false,
+			sameSite: 'Lax'
 		});
 
 		res.redirect('https://www.bakurentalmanager.site');
