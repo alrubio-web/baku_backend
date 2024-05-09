@@ -59,14 +59,14 @@ router.get('/callback', async (req, res, next) => {
 
 // Enviar el nombre del usuario y el rol en cookies accesibles desde el frontend
 		res.cookie('userName', userInfo.name, {
-			secure: false,
-			sameSite: 'strict'
+			secure: true,
+			sameSite: 'Lax'
 			// sitios
 		});
 
 		res.cookie('userRol', rol, {
-			secure: false,
-			sameSite: 'strict'
+			secure: true,
+			sameSite: 'Lax'
 		});
 
 		res.redirect('https://www.bakurentalmanager.site');
