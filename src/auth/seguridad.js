@@ -30,7 +30,7 @@ module.exports = function() {
 
 		// Lógica para verificar el token
 		try {
-			//*/
+			/*/
 			// Extraer y verificar el token a partir de las cookies
 			const token = req.cookies.internalToken;
 			if (!token) {
