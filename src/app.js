@@ -41,8 +41,6 @@ const app = express();
 app.use(cors({
 	origin: ["https://www.bakurentalmanager.site"], // Asegúrate de incluir todos los dominios necesarios
 	credentials: true, // Permite cookies
-	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
-	allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
 }));
 
 app.use(morgan('dev')); // Usa morgan en modo 'dev' para registrar solicitudes HTTP
