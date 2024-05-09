@@ -37,7 +37,7 @@ ${movimiento.mov_descripcion} por importe de ${movimiento.mov_total} euros.
 Aprovechamos para informarte de que a ${hoy} ${mensajeSaldo}
 Por favor, revisa los detalles y confírmanos.`;
 
-			const mensajeCodificado = encodeURIComponent(mensaje);
+			const mensajeCodificado = encodeURIComponent(mensaje.trim());
 			const urlWhatsApp = `https://wa.me/${numeroInquilino}?text=${mensajeCodificado}`;
 			return urlWhatsApp;
 		} catch (error) {
@@ -88,7 +88,7 @@ en estado "pendiente" y, sin embargo su saldo es mayor o igual que cero.`;
 
 			}
 
-			const mensajeCodificado = encodeURIComponent(mensaje);
+			const mensajeCodificado = encodeURIComponent(mensaje.trim());
 			const urlWhatsApp = `https://wa.me/${numeroInquilino}?text=${mensajeCodificado}`;
 			return urlWhatsApp;
 		} catch (error) {
