@@ -59,16 +59,14 @@ router.get('/callback', async (req, res, next) => {
 
 // Enviar el nombre del usuario y el rol en cookies accesibles desde el frontend
 		res.cookie('userName', userInfo.name, {
-			httpOnly: false, // Importante para que Vuex pueda leer la cookie
-			secure: true, // Asegura que la cookie se envíe solo a través de HTTPS
-			sameSite: 'None' // Necesario para accesos cross-origin
+			secure: false,
+			sameSite: 'strict'
 			// sitios
 		});
 
 		res.cookie('userRol', rol, {
-			httpOnly: false, // Importante para que Vuex pueda leer la cookie
-			secure: true,    // Recomendado para producción
-			sameSite: 'None' // Necesario para accesos cross-origin
+			secure: false,
+			sameSite: 'strict'
 		});
 
 		res.redirect('https://www.bakurentalmanager.site');
