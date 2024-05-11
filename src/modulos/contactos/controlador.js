@@ -56,7 +56,20 @@ module.exports = function (dbInyectada) {
 
 	// Función para agregar un nuevo contacto
 	async function agregar(body) {
-		return db.agregar(TABLA, body);
+		// Listas de claves para el contacto excepto el/los campos generados por la base de datos
+		const clavesContacto = ['id', 'tipo_contacto', 'nombre_completo', 'apodo',
+			'email', 'dni', 'direccion', 'telefono', 'prefijo_pais_movil', 'movil', 'notas', 'cuenta_corriente',
+			'nombre_fiscal', 'telegram_token', 'telegram_chat_id'];
+
+		// Construir objeto contacto
+		let contacto = {};
+		clavesContacto.forEach(clave => {
+			if (body.hasOwnProperty(clave)) {
+				contacto[clave] = body[clave];
+			}
+		});
+
+		return db.agregar(TABLA, contacto);
 	}
 
 
