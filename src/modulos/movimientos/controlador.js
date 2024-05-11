@@ -55,7 +55,7 @@ module.exports = function (dbInyectada) {
 		try {
 			// Listas de claves para la tabla movimiento
 			const clavesMovimiento = ['id', 'fecha', 'tipo',
-				'id_contrato', 'descripcion', 'pct_iva', 'pct_retencion', 'Fecha_inicio', 'Fecha_fin', 'cantidad', 'estado'];
+				'id_contrato', 'descripcion', 'cantidad', 'pct_iva', 'pct_retencion', 'estado', 'Fecha_inicio', 'Fecha_fin'];
 
 			// Construir objeto movimiento
 			let movimiento = {};
@@ -98,7 +98,20 @@ module.exports = function (dbInyectada) {
 				movimientoActualizado[0].pendiente_movimiento = movimientoActualizado[0].total;
 				movimientoActualizado[0].url_documento = "pendiente generar pdf";
 
-				let respuesta = await db.agregar(TABLA, movimientoActualizado[0]);
+				// Volvemos a construir el objeto con los campos trabajados pero asegurándonos de no enviar en la query
+				// los campos que genera la base de datos:
+				const clavesMovimientoFinal = ['id', 'fecha', 'tipo',
+					'id_contrato', 'pagadero_por', 'propietario', 'descripcion', 'cantidad', 'pendiente_movimiento',
+					'pct_iva', 'pct_retencion', 'url_documento', 'estado', 'Fecha_inicio', 'Fecha_fin'];
+
+				let movimientoFinal = {};
+				clavesMovimientoFinal.forEach(clave => {
+					if (movimientoActualizado[0].hasOwnProperty(clave)) {
+						movimientoFinal[clave] = movimientoActualizado[0][clave];
+					}
+				});
+
+				let respuesta = await db.agregar(TABLA, movimientoFinal);
 				return respuesta;
 			}
 
@@ -118,23 +131,62 @@ module.exports = function (dbInyectada) {
 				movimientoActualizado[0].url_documento = "pendiente generar pdf";
 				movimientoActualizado[0].estado = "pendiente";
 
-				let respuesta = await db.agregar(TABLA, movimientoActualizado[0]);
+				// Volvemos a construir el objeto asegurándonos de no enviar en la query
+				// los campos que genera la base de datos:
+				const clavesMovimientoFinal = ['id', 'fecha', 'tipo',
+					'id_contrato', 'pagadero_por', 'propietario', 'descripcion', 'cantidad', 'pendiente_movimiento',
+					'pct_iva', 'pct_retencion', 'url_documento', 'estado', 'Fecha_inicio', 'Fecha_fin'];
+
+				let movimientoFinal = {};
+				clavesMovimientoFinal.forEach(clave => {
+					if (movimientoActualizado[0].hasOwnProperty(clave)) {
+						movimientoFinal[clave] = movimientoActualizado[0][clave];
+					}
+				});
+
+				let respuesta = await db.agregar(TABLA, movimientoFinal);
 				return respuesta;
 			}
 
 			//Si se trata de cambiar el estado del movimiento a "anulado", directamente realizamos esa modificación (será un
 			// paso previo, posiblemente a borrar el movimiento, ya que no se puede eliminar ningún movimiento que no tenga
 			// estado "anulado").
-			if(movimiento.estado === "anulado"){
-				let respuesta = await db.agregar(TABLA, movimiento);
+			if(body.estado === "anulado"){
+				// Volvemos a construir el objeto asegurándonos de no enviar en la query
+				// los campos que genera la base de datos:
+				const clavesMovimientoFinal = ['id', 'fecha', 'tipo',
+					'id_contrato', 'pagadero_por', 'propietario', 'descripcion', 'cantidad', 'pendiente_movimiento',
+					'pct_iva', 'pct_retencion', 'url_documento', 'estado', 'Fecha_inicio', 'Fecha_fin'];
+
+				let movimientoFinal = {};
+				clavesMovimientoFinal.forEach(clave => {
+					if (body.hasOwnProperty(clave)) {
+						movimientoFinal[clave] = body[clave];
+					}
+				});
+
+				let respuesta = await db.agregar(TABLA, movimientoFinal);
 				return respuesta;
 			}
 
 			//  Si se trata de una actualización de movimiento del tipo que sea,
 			// agregamos a la base de datos para generar los valores de los campos calculados y llamamos a la función para
 			// gestionar el estado del movimiento y su saldo
-			await db.agregar(TABLA, movimiento);
-			let respuesta = await gestionaEstadoPendienteMovimiento(movimiento.id);
+			// Volvemos a construir el objeto asegurándonos de no enviar en la query
+			// los campos que genera la base de datos:
+			const clavesMovimientoFinal = ['id', 'fecha', 'tipo',
+				'id_contrato', 'pagadero_por', 'propietario', 'descripcion', 'cantidad', 'pendiente_movimiento',
+				'pct_iva', 'pct_retencion', 'url_documento', 'estado', 'Fecha_inicio', 'Fecha_fin'];
+
+			let movimientoFinal = {};
+			clavesMovimientoFinal.forEach(clave => {
+				if (body.hasOwnProperty(clave)) {
+					movimientoFinal[clave] = body[clave];
+				}
+			});
+
+			await db.agregar(TABLA, movimientoFinal);
+			let respuesta = await gestionaEstadoPendienteMovimiento(movimientoFinal.id);
 			return respuesta;
 
 		} catch (error) {
@@ -167,10 +219,23 @@ module.exports = function (dbInyectada) {
 		} else {
 			movimientoActualizado[0].pendiente_movimiento = movimientoActualizado[0].pendiente_movimiento - sumaAbonosMovimiento;
 			movimientoActualizado[0].estado = "pendiente";
-		}
+		};
+
+		// Volvemos a construir el objeto asegurándonos de no enviar en la query
+		// los campos que genera la base de datos:
+		const clavesMovimientoFinal = ['id', 'fecha', 'tipo',
+			'id_contrato', 'pagadero_por', 'propietario', 'descripcion', 'cantidad', 'pendiente_movimiento',
+			'pct_iva', 'pct_retencion', 'url_documento', 'estado', 'Fecha_inicio', 'Fecha_fin'];
+
+		let movimientoFinal = {};
+		clavesMovimientoFinal.forEach(clave => {
+			if (movimientoActualizado[0].hasOwnProperty(clave)) {
+				movimientoFinal[clave] = movimientoActualizado[0][clave];
+			}
+		});
 
 		// Agregamos el movimiento gestionado a la base de datos
-		const respuesta = await db.agregar(TABLA, movimientoActualizado[0]);
+		const respuesta = await db.agregar(TABLA, movimientoFinal);
 		return respuesta;
 	}
 
@@ -183,6 +248,19 @@ module.exports = function (dbInyectada) {
 
 			// Actualiza solo el campo específico
 			movimientoActualizado.url_documento = url;
+
+			// Volvemos a construir el objeto asegurándonos de no enviar en la query
+			// los campos que genera la base de datos:
+			const clavesMovimientoFinal = ['id', 'fecha', 'tipo',
+				'id_contrato', 'pagadero_por', 'propietario', 'descripcion', 'cantidad', 'pendiente_movimiento',
+				'pct_iva', 'pct_retencion', 'url_documento', 'estado', 'Fecha_inicio', 'Fecha_fin'];
+
+			let movimientoFinal = {};
+			clavesMovimientoFinal.forEach(clave => {
+				if (movimientoActualizado.hasOwnProperty(clave)) {
+					movimientoFinal[clave] = movimientoActualizado[clave];
+				}
+			});
 
 			// Llama a la función agregar con el objeto actualizado
 			let respuesta = await db.agregar(TABLA, movimientoActualizado);
