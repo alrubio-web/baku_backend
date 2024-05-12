@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "heroku-postbuild": "mkdir ./.cache && mv /app/.cache/puppeteer ./.cache"
   },
   "author": "",
   "license": "ISC",
@@ -28,8 +29,5 @@
   },
   "devDependencies": {
     "dotenv": "^16.4.5"
-  },
-  "config": {
-    "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": "true"
   }
 }

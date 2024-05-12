@@ -43,7 +43,6 @@ module.exports = function () {
 			const browser = await puppeteer.launch({
 				headless: true,
 				args: ['--no-sandbox', '--disable-setuid-sandbox'],
-				executablePath: process.env.CHROME_BIN // Usar CHROME_BIN proporcionado por el buildpack
 			});
 
 			const page = await browser.newPage();
