@@ -263,7 +263,7 @@ module.exports = function (dbInyectada) {
 			});
 
 			// Llama a la función agregar con el objeto actualizado
-			let respuesta = await db.agregar(TABLA, movimientoActualizado);
+			let respuesta = await db.agregar(TABLA, movimientoFinal);
 			return respuesta;
 		} catch (error) {
 			throw error;
