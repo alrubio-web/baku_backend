@@ -36,6 +36,10 @@ module.exports = function () {
 			const htmlContent = await compilarPlantilla(templatePath, movimientos);
 
 			// Configurar Puppeteer para usar Chromium instalado por el buildpack en Heroku
+			// Para ello se ha instalado el buildpack de Puppeteer en Heroku, se ha configurado
+			// CHROME_BIN en Heroku con el siguiente comando: "heroku config:set CHROME_BIN=/app/.apt/usr/bin/google-chrome-stable
+			// --app baku-rental-manager-backend"
+
 			const browser = await puppeteer.launch({
 				headless: true,
 				args: ['--no-sandbox', '--disable-setuid-sandbox'],
