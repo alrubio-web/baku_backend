@@ -35,7 +35,7 @@ module.exports = function () {
 			const templatePath = path.join(__dirname, 'movimientosPdfTemplate.hbs');
 			const htmlContent = await compilarPlantilla(templatePath, movimientos);
 
-			// Configurar Puppeteer para usar Chromium instalado por el buildpack en Heroku
+			//  Configurar Puppeteer para usar Chromium instalado por el buildpack en Heroku
 			// Para ello se ha instalado el buildpack de Puppeteer en Heroku, se ha configurado
 			// CHROME_BIN en Heroku con el siguiente comando: "heroku config:set CHROME_BIN=/app/.apt/usr/bin/google-chrome-stable
 			// --app baku-rental-manager-backend"
