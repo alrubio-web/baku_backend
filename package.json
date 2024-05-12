@@ -28,5 +28,8 @@
   },
   "devDependencies": {
     "dotenv": "^16.4.5"
+  },
+  "config": {
+    "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": "true"
   }
 }

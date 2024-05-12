@@ -35,9 +35,11 @@ module.exports = function () {
 			const templatePath = path.join(__dirname, 'movimientosPdfTemplate.hbs');
 			const htmlContent = await compilarPlantilla(templatePath, movimientos);
 
-			// Usar Puppeteer para generar el PDF
+			// Configurar Puppeteer para usar Chromium instalado por el buildpack en Heroku
 			const browser = await puppeteer.launch({
-				headless: "new" // Usa el nuevo modo headless
+				headless: true,
+				args: ['--no-sandbox', '--disable-setuid-sandbox'],
+				executablePath: process.env.CHROME_BIN // Usar CHROME_BIN proporcionado por el buildpack
 			});
 
 			const page = await browser.newPage();
