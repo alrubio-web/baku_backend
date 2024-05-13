@@ -61,9 +61,42 @@ module.exports = function (dbInyectada) {
 		return db.uno(TABLA_MEDIDAS, id);
 	}
 
-	// Función para agregar un nuevo contrato
+	// Función para agregar un nuevo contrato o modificarlo
 	async function agregar(body) {
 		try {
+			// Comprobamos que no exista un contrato activo que no sea el propio contrato con el mismo id_inmueble y fechas
+			// solapadas para un contrato nuevo o la actualización de uno existente
+			const consultaContratos = await db.todos(TABLA);
+			const contratosSolapados = consultaContratos.filter(c =>
+				c.id !== body.id &&
+				c.id_inmueble === body.id_inmueble &&
+				c.estado &&
+				!(moment(c.fecha_fin).isBefore(moment(body.fecha_inicio)) || moment(c.fecha_inicio).isAfter(moment(body.fecha_fin)))
+			);
+
+			if (contratosSolapados.length > 0) {
+				throw new Error('Existe(n) contrato(s) activo(s) que se solapan en las fechas proporcionadas para el mismo' +
+					' inmueble.');
+			}
+
+			// Si se trata de una modificación de un contrato, los únicos campos permitidos para modificación serán el nombre
+			// del contrato, la fecha_fin, deduccion_fiscal, fianza, tipo_pago, sujeto_a_IRPF y notas.
+			if(body.id > 0){
+				const clavesContratoModificado = ['id', 'nombre', 'fecha_fin', 'deduccion_fiscal', 'fianza', 'tipo_pago', 'sujeto_a_IRPF', 'notas'];
+
+				// Construir objeto contratoModificado
+				let contratoModificado = {};
+				clavesContratoModificado.forEach(clave => {
+					if (body.hasOwnProperty(clave)) {
+						contratoModificado[clave] = body[clave];
+					}
+				});
+				// Realizar inserción en la tabla contratos
+				const respuesta = await db.agregar(TABLA, contratoModificado);
+				return respuesta;
+			}
+
+			// Construimos claves necesarias para operaciones en caso de nuevo contrato
 			// Listas de claves para cada tabla
 			const clavesContrato = ['id', 'nombre', 'id_inmueble', 'arrendador', 'inquilino', 'fecha_inicio', 'fecha_fin', 'deduccion_fiscal', 'fianza', 'estado', 'tipo_pago', 'sujeto_a_IRPF', 'notas'];
 			const clavesRentas = ['fecha', 'id_contrato', 'tipo_actualizacion', 'renta', 'ipc', 'tasa_variacion'];
@@ -76,20 +109,7 @@ module.exports = function (dbInyectada) {
 				}
 			});
 
-			// Comprobamos que no exista un contrato con el mismo id_inmueble y fechas solapadas para un contrato nuevo o la actualización de uno existente
-			const consultaContratos = await db.todos(TABLA);
-			const contratosSolapados = consultaContratos.filter(c =>
-				c.id_inmueble === contrato.id_inmueble &&
-				c.estado &&
-				!(moment(c.fecha_fin).isBefore(moment(contrato.fecha_inicio)) || moment(c.fecha_inicio).isAfter(moment(contrato.fecha_fin)))
-			);
-
-			if (contratosSolapados.length > 0) {
-				throw new Error('Existe(n) contrato(s) activo(s) que se solapan en las fechas proporcionadas para el mismo' +
-					' inmueble.');
-			}
-
-			// Realizar inserción en la tabla contratos
+			// Si es un contrato nuevo, realizar inserción en la tabla contratos
 			const respuesta = await db.agregar(TABLA, contrato);
 			let insertId = body.id === 0 ? respuesta.insertId : body.id;
 
