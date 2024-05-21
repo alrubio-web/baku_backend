@@ -27,8 +27,8 @@ router.get('/', seguridadRol(), revisarYGenerarMovimientos);
 // Función para llamar a la revisión de movimientos periódicos y generar automáticamente si procede
 async function revisarYGenerarMovimientos(req, res, next) {
 	try {
-		await controlador.revisarYGenerarMovimientos();
-		respuesta.success(req, res, 'Movimientos revisados/generados correctamente', 200);
+		let mensaje = await controlador.revisarYGenerarMovimientos();
+		respuesta.success(req, res, mensaje, 200);
 	} catch (err) {
 		next(err);
 	}
