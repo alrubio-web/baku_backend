@@ -82,7 +82,7 @@ module.exports = function (dbInyectada) {
 			// Si se trata de una modificación de un contrato, los únicos campos permitidos para modificación serán el nombre
 			// del contrato, la fecha_fin, deduccion_fiscal, fianza, tipo_pago, sujeto_a_IRPF y notas.
 			if(body.id > 0){
-				const clavesContratoModificado = ['id', 'nombre', 'fecha_fin', 'deduccion_fiscal', 'fianza', 'tipo_pago', 'sujeto_a_IRPF', 'notas'];
+				const clavesContratoModificado = ['id', 'nombre', 'fecha_fin', 'deduccion_fiscal', 'fianza', 'tipo_pago', 'sujeto_a_IRPF', 'notas', 'estado'];
 
 				// Construir objeto contratoModificado
 				let contratoModificado = {};
