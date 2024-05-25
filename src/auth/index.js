@@ -15,7 +15,6 @@
 // Importación de módulos necesarios
 const jwt = require('jsonwebtoken'); // Módulo para trabajar con JSON Web Tokens
 const config = require('../config'); // Importa la configuración del proyecto
-const error = require('../middleware/errors'); // Middleware para manejar errores
 
 // Obtiene la clave secreta desde la configuración
 const secret = config.jwt.secret;
