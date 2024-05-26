@@ -100,7 +100,7 @@ function eliminar(tabla, data) {
 }
 
 
-// Realizar una consulta personalizada en una tabla
+/* Realizar una consulta personalizada en una tabla
 function query(tabla, consulta){
 	return new Promise((resolve, reject) => {
 		conexion.query(`SELECT * FROM ${tabla} WHERE ?`, consulta, (error, result) => {
@@ -108,13 +108,12 @@ function query(tabla, consulta){
 		});
 	});
 }
-
+*/
 
 // Exporta las funciones para ser usadas en otros archivos
 module.exports = {
 	todos,
 	uno,
 	agregar,
-	eliminar,
-	query
+	eliminar
 }
