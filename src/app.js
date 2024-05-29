@@ -70,7 +70,7 @@ app.listen(PORT, () => {
 //Configuramos la aplicación para usar cookieParser()
 app.use(cookieParser());
 
-//Aplicamos la capa de seguridad globalmente, ya que requerimos autenticación en todas las rutas
+//Aplicamos la capa de seguridad globalmente, ya que requerimos autenticación en todas las rutas /auth/seguridad.js
 app.use(seguridad());
 
 
